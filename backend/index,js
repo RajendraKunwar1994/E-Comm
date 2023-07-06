@@ -33,9 +33,9 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/product', (req, res) => {
-  const data = [req.body.product_name, req.body.price, req.body.category, req.body.company];
+  const data = [req.body.product_name, req.body.price, req.body.category, req.body.company,req.body.url];
   console.log(data);
-  sql.query(con, "insert into products (product_name,price,category,company) values(?,?,?,?)", data, (err, result) => {
+  sql.query(con, "insert into products (product_name,price,category,company,Imgurl) values(?,?,?,?,?)", data, (err, result) => {
     if (err) {
       res.send(err);
     } else {
@@ -93,8 +93,8 @@ if(err)
 
 app.post('/updateProduct', (req, res) => {
 
-  const data = [req.body.product_name, req.body.price, req.body.category, req.body.company, req.body.id];
-  sql.query(con, "update products set product_name=?,price=?,category=?,company=? where id=?", data, (err, result) => {
+  const data = [req.body.product_name, req.body.price, req.body.category, req.body.company, req.body.url, req.body.id];
+  sql.query(con, "update products set product_name=?,price=?,category=?,company=?,Imgurl=? where id=?", data, (err, result) => {
     if (err) {
       res.send(err)
     }
