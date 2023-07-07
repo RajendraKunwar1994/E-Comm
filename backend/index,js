@@ -33,9 +33,9 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/product', (req, res) => {
-  const data = [req.body.product_name, req.body.price, req.body.category, req.body.company,req.body.url];
+  const data = [req.body.product_name, req.body.price, req.body.category, req.body.company,req.body.url,req.body.discription,req.body.specification];
   console.log(data);
-  sql.query(con, "insert into products (product_name,price,category,company,Imgurl) values(?,?,?,?,?)", data, (err, result) => {
+  sql.query(con, "insert into products (product_name,price,category,company,Imgurl,discription,specification) values(?,?,?,?,?,?,?)", data, (err, result) => {
     if (err) {
       res.send(err);
     } else {
@@ -80,7 +80,7 @@ app.get('/product/:id', (req, res) => {
 });
 
 app.get('/stock',(req,res)=>{
-sql.query(con,"SELECT product_name, MAX(category) as category, COUNT(*) as stock FROM products GROUP BY product_name",(err,result)=>{
+sql.query(con,"SELECT category, MAX(company) as company, COUNT(*) as stock FROM products GROUP BY category",(err,result)=>{
 if(err)
 {
   res.send(err);
@@ -93,8 +93,8 @@ if(err)
 
 app.post('/updateProduct', (req, res) => {
 
-  const data = [req.body.product_name, req.body.price, req.body.category, req.body.company, req.body.url, req.body.id];
-  sql.query(con, "update products set product_name=?,price=?,category=?,company=?,Imgurl=? where id=?", data, (err, result) => {
+  const data = [req.body.product_name, req.body.price, req.body.category, req.body.company, req.body.url,req.body.discription,req.body.specification, req.body.id];
+  sql.query(con, "update products set product_name=?,price=?,category=?,company=?,Imgurl=?,discription=?,specification=? where id=?", data, (err, result) => {
     if (err) {
       res.send(err)
     }
